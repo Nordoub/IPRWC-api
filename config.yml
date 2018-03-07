@@ -1,0 +1,25 @@
+apiName: "LSCN"
+
+logging:
+  level: INFO
+  loggers:
+    io.dropwizard.archetypes: DEBUG
+
+server:
+  rootPath: /api/*
+  adminContextPath: /admin
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+  allowedMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - HEAD
+      - OPTIONS
+      - PATCH
+      - PROPFIND

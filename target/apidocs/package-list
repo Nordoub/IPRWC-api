@@ -1,0 +1,5 @@
+dropwizard
+dropwizard.model
+dropwizard.persistence
+dropwizard.resource
+dropwizard.service
