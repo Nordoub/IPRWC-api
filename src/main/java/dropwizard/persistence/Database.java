@@ -47,7 +47,7 @@ public class Database {
     }
 
     /**
-     * @return a String array with the information from the LSCN.conf file
+     * @return a String array with the information from the webapp.conf file
      */
     private String[] getDatabaseConfig() {
         String[] config = new String[4];

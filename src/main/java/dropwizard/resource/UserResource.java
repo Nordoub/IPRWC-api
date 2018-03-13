@@ -26,7 +26,6 @@ public class UserResource {
         this.service = service;
     }
 
-    @RolesAllowed("admin")
     @GET
     @JsonView(View.Public.class)
     public Collection<User> retrieveAll(){
@@ -74,7 +73,7 @@ public class UserResource {
     @JsonView(View.Public.class)
     public String test(User user)
     {
-        return "access  ";
+        return "acces";
     }
 
     @RolesAllowed("admin")
@@ -85,19 +84,19 @@ public class UserResource {
         service.delete(gebruikersnaam);
     }
 
-//    @GET
-//    @Path("/email/{username}")
-//    @JsonView(View.Public.class)
-//    @Produces(MediaType.TEXT_PLAIN)
-//    public String getEmail(@PathParam("username") String username){
-//        System.out.println(service.getEmailByUsername(username));
-//        return service.getEmailByUsername(username);
-//    }
-//
-//    @GET
-//    @Path("/{username}")
-//    @JsonView(View.Public.class)
-//    public User getLoggedUser(@PathParam("username") String username){
-//        return service.getLoggedUser(username);
-//    }
+    @GET
+    @Path("/email/{username}")
+    @JsonView(View.Public.class)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getEmail(@PathParam("username") String username){
+        System.out.println(service.getEmailByUsername(username));
+        return service.getEmailByUsername(username);
+    }
+
+    @GET
+    @Path("/{username}")
+    @JsonView(View.Public.class)
+    public User getLoggedUser(@PathParam("username") String username){
+        return service.getLoggedUser(username);
+    }
 }

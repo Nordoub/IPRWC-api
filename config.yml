@@ -1,4 +1,4 @@
-apiName: "LSCN"
+apiName: "backend"
 
 logging:
   level: INFO

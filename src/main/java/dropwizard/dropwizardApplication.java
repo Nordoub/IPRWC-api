@@ -1,12 +1,8 @@
 package dropwizard;
 
 //import dropwizard.persistence.ClientDAO;
-//import dropwizard.persistence.IntakeDAO;
-//import dropwizard.persistence.DidYouKnowDAO;
 import dropwizard.persistence.UserDAO;
 //import dropwizard.resource.ClientResource;
-//import dropwizard.resource.IntakeResource;
-//import dropwizard.resource.DidYouKnowResource;
 import dropwizard.resource.UserResource;
 import dropwizard.service.*;
 import dropwizard.model.User;
@@ -48,16 +44,13 @@ public class dropwizardApplication extends Application<dropwizardConfiguration> 
 
         UserService userService = new  UserService(new UserDAO());
         UserResource userResource = new UserResource(userService);
-//        DidYouKnowResource didYouKnowResource = new DidYouKnowResource(new DidYouKnowService(new DidYouKnowDAO()));
 //        ClientResource clientResource = new ClientResource(new ClientService(new ClientDAO(new UserDAO())));
 //        ProductResource productResource = new ProductResource(new ProductService(new ProductDAO()));
-//        IntakeResource intakeResource = new IntakeResource(new IntakeService(new IntakeDAO()));
-//
-//        environment.jersey().register(didYouKnowResource);
+
+
         environment.jersey().register(userResource);
 //        environment.jersey().register(clientResource);
 //        environment.jersey().register(productResource);
-//        environment.jersey().register(intakeResource);
 
         //register the userAuthenticator and the UserAuthorizer.
         environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()

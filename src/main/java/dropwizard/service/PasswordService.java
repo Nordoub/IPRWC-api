@@ -11,9 +11,8 @@ import javax.xml.bind.DatatypeConverter;
 /**
  * The PasswordController handles all functionality
  * regarding the password.
- *
- * @author Wim van der Putten
  */
+
 public class PasswordService {
 
     /**
