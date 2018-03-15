@@ -33,6 +33,7 @@ public class UserDAO {
     }
 
     public User getByUsername(String username) {
+        database.checkConnection();
         allUsers = getUsers();
         Optional<User> result = allUsers.stream()
                 .filter(user -> user.getUsername().equals(username))
@@ -42,6 +43,7 @@ public class UserDAO {
     }
 
     public List<User> getUsers(){
+        database.checkConnection();
         try {
             allUsers.clear();
             ResultSet users = getUsers.executeQuery();
@@ -70,6 +72,7 @@ public class UserDAO {
     }
 
     public void add(User user){
+        database.checkConnection();
         try {
             addUser.setString(1,user.getFirstname());
             addUser.setString(2,user.getPreposition());
@@ -85,6 +88,7 @@ public class UserDAO {
     }
 
     public void update(User user){
+        database.checkConnection();
         try {
             updateUser.setString(1,user.getPassword());
             updateUser.setString(2, user.getFirstname());
@@ -100,6 +104,7 @@ public class UserDAO {
     }
 
     public void delete(String gebruikersnaam){
+        database.checkConnection();
         try {
             deleteUser.setString(1, gebruikersnaam);
             deleteUser.executeUpdate();
@@ -109,6 +114,7 @@ public class UserDAO {
     }
 
     public synchronized User loginUser(String userName) {
+        database.checkConnection();
         User loginUser = new User();
 
         try {
@@ -130,6 +136,7 @@ public class UserDAO {
     }
 
     public String getPassword(String username){
+        database.checkConnection();
         try {
             getPassword.setString(1, username);
             ResultSet resultSet = getPassword.executeQuery();
@@ -145,6 +152,7 @@ public class UserDAO {
     }
 
     public int getUserCount() {
+        database.checkConnection();
         try {
             ResultSet resultSet = countUsers.executeQuery();
             if (resultSet.next()){

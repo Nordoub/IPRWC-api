@@ -10,6 +10,8 @@ public class Database {
     private Connection dbConnection;
     private static Database database;
     private String line;
+    private String[] config = getDatabaseConfig();
+    private String url ="jdbc:mysql://"+ config[0] + "/" + config[3];
 
     /**
      * This is the constructor for the Database. It
@@ -25,8 +27,6 @@ public class Database {
         }
 
         try {
-            String[] config = getDatabaseConfig();
-            String url ="jdbc:mysql://"+ config[0] + "/" + config[3];
 //            String url = "jdbc:mysql://localhost:5432/iprwc";
             dbConnection = DriverManager.getConnection(url, config[1],config[2]);
 //            dbConnection = DriverManager.getConnection(url, "root","root");
@@ -44,6 +44,19 @@ public class Database {
             database = new Database();
         }
         return database;
+    }
+
+    public Connection checkConnection() {
+        try {
+            if(dbConnection.isClosed()) {
+                dbConnection = DriverManager.getConnection(url, config[1],config[2]);
+                return dbConnection;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
