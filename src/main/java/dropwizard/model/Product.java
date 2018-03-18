@@ -43,19 +43,17 @@ public class Product implements Principal {
     @JsonView(View.Public.class)
     private String imgURL;
 
+    @NotEmpty
+    @Length(min = 1, max = 128)
+    @JsonView(View.Public.class)
+    private String categorie;
 
 
     public Product() {
 
     }
-    //public id?: number,
-//public omschrijving?: string,
-//public fabrikant?: string,
-//public gecheckt?: string,
-//public prijs?: string,
-//public product_gebruiker_id?: string,
-//public imgURL: string)
-    public Product(int id, String omschrijving, String fabrikant, int gecheckt, double prijs, int product_gebruiker_id, String imgURL) {
+
+    public Product(int id, String omschrijving, String fabrikant, int gecheckt, double prijs, int product_gebruiker_id, String imgURL, String categorie) {
         this.id = id;
         this.omschrijving = omschrijving;
         this.fabrikant = fabrikant;
@@ -63,15 +61,17 @@ public class Product implements Principal {
         this.prijs = prijs;
         this.product_gebruiker_id = product_gebruiker_id;
         this.imgURL = imgURL;
+        this.categorie = categorie;
     }
 
-    public Product(String omschrijving, String fabrikant, int gecheckt, double prijs, int product_gebruiker_id, String imgURL) {
+    public Product(String omschrijving, String fabrikant, int gecheckt, double prijs, int product_gebruiker_id, String imgURL, String categorie) {
         this.omschrijving = omschrijving;
         this.fabrikant = fabrikant;
         this.gecheckt = gecheckt;
         this.prijs = prijs;
         this.product_gebruiker_id = product_gebruiker_id;
         this.imgURL = imgURL;
+        this.categorie = categorie;
     }
 
     @Override
@@ -133,5 +133,13 @@ public class Product implements Principal {
 
     public void setImgURL(String imgURL) {
         this.imgURL = imgURL;
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
 }

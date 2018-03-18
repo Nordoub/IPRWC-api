@@ -60,7 +60,8 @@ public class ProductDAO {
                         resultSet.getInt("gecheckt"),
                         resultSet.getDouble("prijs"),
                         resultSet.getInt("product_gebruiker_id"),
-                        resultSet.getString("imgURL")
+                        resultSet.getString("imgURL"),
+                        resultSet.getString("categorie")
                 ));
 
             }
