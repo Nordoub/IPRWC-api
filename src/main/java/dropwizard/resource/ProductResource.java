@@ -27,6 +27,7 @@ public class ProductResource {
     }
 
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Public.class)
     public Collection<Product> retrieveAll(){
 
