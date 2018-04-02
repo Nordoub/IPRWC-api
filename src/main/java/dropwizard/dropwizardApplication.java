@@ -45,7 +45,7 @@ public class dropwizardApplication extends Application<dropwizardConfiguration> 
         UserService userService = new  UserService(new UserDAO());
         UserResource userResource = new UserResource(userService);
 //        ClientResource clientResource = new ClientResource(new ClientService(new ClientDAO(new UserDAO())));
-        ProductResource productResource = new ProductResource(new ProductService(new ProductDAO()));
+        ProductResource productResource = new ProductResource(new ProductService(new ProductDAO(new UserDAO())));
 
 
         environment.jersey().register(userResource);

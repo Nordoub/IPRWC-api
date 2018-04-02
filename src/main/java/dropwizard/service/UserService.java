@@ -31,6 +31,14 @@ public class UserService extends BaseService {
             e.printStackTrace();
         }
     }
+    public void register(User user) {
+        try {
+            user.setPassword(passwordService.createHash(user.getPassword()));
+            dao.register(user);
+        } catch (PasswordService.CannotPerformOperationException e) {
+            e.printStackTrace();
+        }
+    }
 
     public User getLoggedUser(String userName){
         return dao.loginUser(userName);
@@ -68,13 +76,13 @@ public class UserService extends BaseService {
         dao.update(user);
     }
 
-    public String getEmailByUsername(String username){
-        return dao.getByUsername(username).getEmail();
-    }
-
-    public int getUserCount() {
-        return dao.getUserCount();
-    }
+//    public String getEmailByUsername(String username){
+//        return dao.getByUsername(username).getEmail();
+//    }
+//
+//    public int getUserCount() {
+//        return dao.getUserCount();
+//    }
 
     public void delete(String gebruikersnaam){
         dao.delete(gebruikersnaam);

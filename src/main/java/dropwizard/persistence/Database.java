@@ -48,7 +48,8 @@ public class Database {
 
     public Connection checkConnection() {
         try {
-            if(dbConnection.isClosed()) {
+            if(dbConnection.isClosed() || dbConnection == null) {
+                config = getDatabaseConfig();
                 dbConnection = DriverManager.getConnection(url, config[1],config[2]);
                 return dbConnection;
             }

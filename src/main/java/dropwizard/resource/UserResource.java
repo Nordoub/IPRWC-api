@@ -27,6 +27,7 @@ public class UserResource {
     }
 
     @GET
+    @RolesAllowed("admin")
     @JsonView(View.Public.class)
     public Collection<User> retrieveAll(){
 
@@ -39,6 +40,14 @@ public class UserResource {
     @JsonView(View.Protected.class)
     public void createUser(User user){
         service.add(user);
+    }
+
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @JsonView(View.Public.class)
+    public void registerUser(User user){
+        service.register(user);
     }
 
     @RolesAllowed("admin")
@@ -60,21 +69,21 @@ public class UserResource {
         return authenticator;
     }
 
-    @GET
-    @Path("/count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public int countUsers(){
-        return service.getUserCount();
-    }
-
-    @RolesAllowed("admin")
-    @GET
-    @Path("/test")
-    @JsonView(View.Public.class)
-    public String test(User user)
-    {
-        return "acces";
-    }
+//    @GET
+//    @Path("/count")
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public int countUsers(){
+//        return service.getUserCount();
+//    }
+//
+//    @RolesAllowed("admin")
+//    @GET
+//    @Path("/test")
+//    @JsonView(View.Public.class)
+//    public String test(User user)
+//    {
+//        return "access";
+//    }
 
     @RolesAllowed("admin")
     @DELETE
@@ -84,14 +93,14 @@ public class UserResource {
         service.delete(gebruikersnaam);
     }
 
-    @GET
-    @Path("/email/{username}")
-    @JsonView(View.Public.class)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getEmail(@PathParam("username") String username){
-        System.out.println(service.getEmailByUsername(username));
-        return service.getEmailByUsername(username);
-    }
+//    @GET
+//    @Path("/email/{username}")
+//    @JsonView(View.Public.class)
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public String getEmail(@PathParam("username") String username){
+//        System.out.println(service.getEmailByUsername(username));
+//        return service.getEmailByUsername(username);
+//    }
 
     @GET
     @Path("/{username}")

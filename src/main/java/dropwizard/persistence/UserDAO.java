@@ -49,19 +49,19 @@ public class UserDAO {
             ResultSet users = getUsers.executeQuery();
             while(users.next()){
                 int id = users.getInt("gebruiker_id");
-                String firstname = users.getString("gebruiker_voornaam");
+                String gebruikersnaam = users.getString("gebruiker_gebruikersnaam");
                 String password = users.getString("gebruiker_wachtwoord");
-                String preposition = users.getString("gebruiker_tussenvoegsel");
-                String lastname = users.getString("gebruiker_achternaam");
-                String username = users.getString("gebruiker_gebruikersnaam");
+                String voornaam = users.getString("gebruiker_voornaam");
+                String tussenvoegsel = users.getString("gebruiker_tussenvoegsel");
+                String achternaam = users.getString("gebruiker_achternaam");
                 String email = users.getString("gebruiker_email");
-                String type = users.getString("gebruiker_rol");
+                String rol = users.getString("gebruiker_rol");
                 String created_at = users.getString("gebruiker_aangemaakt_op");
                 String updated_at = users.getString("gebruiker_laast_gewijzigd");
                 Boolean actief = users.getBoolean("gebruiker_actief");
 
                 //create and add user
-                User user = new User(id,username, password, firstname, preposition, lastname, email, type,created_at,updated_at, actief);
+                User user = new User(id,gebruikersnaam,password,voornaam,tussenvoegsel,achternaam,email,rol,created_at,updated_at,actief);
                 allUsers.add(user);
             }
             return allUsers;
@@ -74,13 +74,30 @@ public class UserDAO {
     public void add(User user){
         database.checkConnection();
         try {
-            addUser.setString(1,user.getFirstname());
-            addUser.setString(2,user.getPreposition());
-            addUser.setString(3,user.getLastname());
-            addUser.setString(4,user.getUsername());
-            addUser.setString(5,user.getPassword());
+            addUser.setString(1,user.getUsername());
+            addUser.setString(2,user.getPassword());
+            addUser.setString(3,user.getFirstname());
+            addUser.setString(4,user.getPreposition());
+            addUser.setString(5,user.getLastname());
             addUser.setString(6,user.getEmail());
             addUser.setString(7,user.getRole());
+            addUser.setString(8, "1");
+            addUser.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void register(User user){
+        database.checkConnection();
+        try {
+            addUser.setString(1,user.getUsername());
+            addUser.setString(2,user.getPassword());
+            addUser.setString(3,user.getFirstname());
+            addUser.setString(4,user.getPreposition());
+            addUser.setString(5,user.getLastname());
+            addUser.setString(6,user.getEmail());
+            addUser.setString(7, "guest");
+            addUser.setString(8, "1");
             addUser.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,13 +107,14 @@ public class UserDAO {
     public void update(User user){
         database.checkConnection();
         try {
-            updateUser.setString(1,user.getPassword());
-            updateUser.setString(2, user.getFirstname());
-            updateUser.setString(3 ,user.getPreposition());
-            updateUser.setString(4 ,user.getLastname());
-            updateUser.setString(5 ,user.getEmail());
-            updateUser.setString(6 ,user.getRole());
-            updateUser.setString(7 ,user.getUsername());
+            updateUser.setString(1,user.getUsername());
+            updateUser.setString(2, user.getPassword());
+            updateUser.setString(3 ,user.getFirstname());
+            updateUser.setString(4 ,user.getPreposition());
+            updateUser.setString(5 ,user.getLastname());
+            updateUser.setString(6 ,user.getEmail());
+            updateUser.setString(7 ,user.getRole());
+            updateUser.setString(8,user.getUsername());
             updateUser.executeLargeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,8 +188,8 @@ public class UserDAO {
             deleteUser = dbConnection.prepareStatement("UPDATE gebruiker SET gebruiker_actief = FALSE, gebruiker_laast_gewijzigd = CURDATE() WHERE gebruiker_gebruikersnaam = ?");
             getPassword = dbConnection.prepareStatement("SELECT gebruiker_wachtwoord FROM gebruiker WHERE gebruiker_gebruikersnaam = ?");
             getUsers = dbConnection.prepareStatement("SELECT * FROM gebruiker where gebruiker_actief = TRUE ;");
-            updateUser = dbConnection.prepareStatement("UPDATE gebruiker SET gebruiker_wachtwoord = ?, gebruiker_voornaam = ?, gebruiker_tussenvoegsel = ?, gebruiker_achternaam = ?, gebruiker_email = ?, gebruiker_rol = ?, gebruiker_laast_gewijzigd = CURDATE() WHERE gebruiker_gebruikersnaam =?;");
-            addUser = dbConnection.prepareStatement("INSERT INTO gebruiker(gebruiker_voornaam, gebruiker_tussenvoegsel, gebruiker_achternaam, gebruiker_gebruikersnaam, gebruiker_wachtwoord, gebruiker_email, gebruiker_rol, gebruiker_aangemaakt_op, gebruiker_laast_gewijzigd)VALUES (?,?,?,?,?,?,?,CURDATE(),CURDATE())");
+            updateUser = dbConnection.prepareStatement("UPDATE gebruiker SET gebruiker_gebruikersnaam = ?, gebruiker_wachtwoord = ?, gebruiker_voornaam = ?, gebruiker_tussenvoegsel = ?, gebruiker_achternaam = ?, gebruiker_email = ?, gebruiker_rol = ?, gebruiker_laast_gewijzigd = CURDATE() WHERE gebruiker_gebruikersnaam =?;");
+            addUser = dbConnection.prepareStatement("INSERT INTO gebruiker(gebruiker_gebruikersnaam, gebruiker_wachtwoord, gebruiker_voornaam, gebruiker_tussenvoegsel, gebruiker_achternaam, gebruiker_email, gebruiker_rol, gebruiker_aangemaakt_op, gebruiker_laast_gewijzigd, gebruiker_actief) VALUES (?,?,?,?,?,?,?,CURDATE(),CURDATE(),?)");
             getLoginUser = dbConnection.prepareStatement("SELECT gebruiker_gebruikersnaam, gebruiker_wachtwoord, gebruiker_rol, gebruiker_voornaam, gebruiker_tussenvoegsel, gebruiker_achternaam, gebruiker_email  FROM gebruiker WHERE gebruiker_gebruikersnaam = ? AND gebruiker_actief = TRUE");
             countUsers = dbConnection.prepareStatement("SELECT COUNT(*) AS aantal FROM gebruiker");
         } catch (SQLException e) {

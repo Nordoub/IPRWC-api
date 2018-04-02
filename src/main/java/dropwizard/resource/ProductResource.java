@@ -3,6 +3,7 @@ package dropwizard.resource;
 import com.fasterxml.jackson.annotation.JsonView;
 import dropwizard.View;
 import dropwizard.model.Product;
+import dropwizard.model.User;
 import dropwizard.service.ProductService;
 import dropwizard.service.UserService;
 import io.dropwizard.auth.Auth;
@@ -33,4 +34,29 @@ public class ProductResource {
 
         return service.getAll();
     }
+    @RolesAllowed("admin")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @JsonView(View.Protected.class)
+    public void addProduct(Product product, @Auth User authenticator) {
+        service.add(product, authenticator);
+    }
+
+    @RolesAllowed("admin")
+    @PUT
+    @Path("/edit")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @JsonView(View.Protected.class)
+    public void editProduct(Product product, @Auth User authenticator) {
+        service.edit(product, authenticator);
+    }
+
+    @RolesAllowed("admin")
+    @DELETE
+    @Path("/delete")
+    @JsonView(View.Protected.class)
+    public void delete(@QueryParam("omschrijving") String omschrijving , @QueryParam("fabrikant") String fabrikant) {
+        service.delete(omschrijving, fabrikant);
+    }
+
 }
