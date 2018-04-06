@@ -28,7 +28,7 @@ public class UserResource {
 
     @GET
     @RolesAllowed("admin")
-    @JsonView(View.Public.class)
+    @JsonView(View.Protected.class)
     public Collection<User> retrieveAll(){
 
         return service.getAll();

@@ -77,6 +77,7 @@ public class ProductDAO {
     public void updateProduct(Product product, User authenticator) {
         try {
             setPreparedStatement(product, updateProduct, authenticator);
+            updateProduct.setString( 8, product.getOmschrijving());
             updateProduct.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -179,7 +180,7 @@ public class ProductDAO {
         try {
             getAllProducts = dbConnection.prepareStatement("SELECT * FROM product;");
             addProduct = dbConnection.prepareStatement("INSERT INTO product(product_omschrijving, product_fabrikant, product_gecheckt, product_prijs, product_gebruiker_id, imgURL, categorie) VALUES (?,?,?,?,?,?,?);");
-            updateProduct = dbConnection.prepareStatement("UPDATE product SET product_omschrijving = ?, product_fabrikant = ?, product_gecheckt = ?, product_gebruiker_id = ?, imgURL = ?, categorie = ? WHERE product_id = ?;");
+            updateProduct = dbConnection.prepareStatement("UPDATE product SET product_omschrijving = ?, product_fabrikant = ?, product_gecheckt = ?, product_prijs = ?, product_gebruiker_id = ?, imgURL = ?, categorie = ? WHERE product_omschrijving = ?;");
             deleteProduct = dbConnection.prepareStatement("DELETE FROM product WHERE product_omschrijving = ? AND product_fabrikant = ?;");
             deleteNullProduct = dbConnection.prepareStatement("DELETE FROM product WHERE product_omschrijving = ? AND product_fabrikant IS ?;");
         } catch (SQLException e) {

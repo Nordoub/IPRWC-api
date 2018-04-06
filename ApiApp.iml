@@ -112,7 +112,7 @@
     <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact:2.0.6" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:2.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-digest:1.0" level="project" />
-    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:6.0.6" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.46" level="project" />
     <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-forms:1.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish.jersey.media:jersey-media-multipart:2.25.1" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet.mimepull:mimepull:1.9.6" level="project" />
